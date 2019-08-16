@@ -308,13 +308,6 @@ LOGS : How to use SLF4J to :
 		</plugins>
 	</build>
 
-	<repositories>
-		<repository>
-			<id>myMavenRepoJamesHomeWorkRead</id>
-			<url>${myMavenRepoJamesHomeWorkReadUrl}</url>
-		</repository>
-	</repositories>
-
 
 	<!-- Instruction:
 	         deployment to a repository is configured in the pom.xml
@@ -322,18 +315,17 @@ LOGS : How to use SLF4J to :
 	 -->
 	<distributionManagement>
 		<repository>
-			<id>myMavenRepoJamesHomeWorkWrite</id>
-			<url>${myMavenRepoJamesHomeWorkWriteUrl}</url>
+			<id>local.josuefako.repo</id>
+			<url>http://localhost:8989/repository/local.josuefako.repo/</url>
 		</repository>
 		<snapshotRepository>
-			<id>myMavenRepoJamesHomeWorkWrite</id>
-			<url>${myMavenRepoJamesHomeWorkWriteUrl}</url>
+			<id>local.josuefako.repo.snapshots2</id>
+			<url>http://localhost:8989/repository/local.josuefako.repo.snapshots2/</url>
 		</snapshotRepository>
 	</distributionManagement>
 	<!-- Instruction:
              The credentials used for the deployment are found in the <server>
               section of your setting.xml
      -->
-
 
 </project>
