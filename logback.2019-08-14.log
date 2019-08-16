@@ -1,0 +1,53 @@
+12:18:17.469 [main] INFO  c.example.aop.UserNotesApplication - Starting UserNotesApplication on JOSUEs-MacBook-Pro.local with PID 20956 (/Users/josuefako/IdeaProjects/github-repositories/prj-aop-v5-ExceptionHandler-strategy/target/classes started by josuefako in /Users/josuefako/IdeaProjects/github-repositories/prj-aop-v5-ExceptionHandler-strategy) 
+12:18:17.477 [main] DEBUG c.example.aop.UserNotesApplication - Running with Spring Boot v2.0.0.RELEASE, Spring v5.0.4.RELEASE 
+12:18:17.479 [main] INFO  c.example.aop.UserNotesApplication - No active profile set, falling back to default profiles: default 
+12:18:21.720 [main] INFO  c.example.aop.UserNotesApplication - Started UserNotesApplication in 24.688 seconds (JVM running for 25.327) 
+12:18:48.703 [http-nio-8181-exec-1] INFO  c.example.aop.aspect.LoggingAdvice -  - method invoked: class com.example.aop.controller.UserController : get( ) - Input Arguments : ["josueF"] 
+12:18:48.716 [http-nio-8181-exec-1] ERROR c.e.a.e.GlobalExceptionHandler - Handling UserNotFoundException due to User 'josueF' not found 
+12:19:02.739 [http-nio-8181-exec-3] DEBUG c.e.a.a.MyCustomConfigurationAspect -  +++++++++ get Inside BEFORE getUserAccess ------------  
+12:19:02.741 [http-nio-8181-exec-3] DEBUG c.e.a.a.MyCustomConfigurationAspect -  +++++++++ get Outside BEFORE getUserAccess ------------  
+12:19:02.750 [http-nio-8181-exec-3] INFO  c.e.aop.controller.NoteController -  *** createNote  
+13:34:50.018 [main] INFO  c.e.aop.UserNotesApplicationTests - Starting UserNotesApplicationTests on JOSUEs-MacBook-Pro.local with PID 21718 (started by josuefako in /Users/josuefako/IdeaProjects/github-repositories/prj-aop-v5-ExceptionHandler-strategy) 
+13:34:50.021 [main] DEBUG c.e.aop.UserNotesApplicationTests - Running with Spring Boot v2.0.0.RELEASE, Spring v5.0.4.RELEASE 
+13:34:50.024 [main] INFO  c.e.aop.UserNotesApplicationTests - No active profile set, falling back to default profiles: default 
+13:34:53.397 [main] INFO  c.e.aop.UserNotesApplicationTests - Started UserNotesApplicationTests in 23.64 seconds (JVM running for 24.392) 
+13:35:48.159 [main] INFO  c.e.aop.UserNotesApplicationTests - Starting UserNotesApplicationTests on JOSUEs-MacBook-Pro.local with PID 21772 (started by josuefako in /Users/josuefako/IdeaProjects/github-repositories/prj-aop-v5-ExceptionHandler-strategy) 
+13:35:48.161 [main] DEBUG c.e.aop.UserNotesApplicationTests - Running with Spring Boot v2.0.0.RELEASE, Spring v5.0.4.RELEASE 
+13:35:48.164 [main] INFO  c.e.aop.UserNotesApplicationTests - No active profile set, falling back to default profiles: default 
+13:35:51.469 [main] INFO  c.e.aop.UserNotesApplicationTests - Started UserNotesApplicationTests in 23.55 seconds (JVM running for 24.249) 
+16:24:22.301 [main] INFO  c.e.aop.UserNotesApplicationTests - Starting UserNotesApplicationTests on JOSUEs-MacBook-Pro.local with PID 22611 (started by josuefako in /Users/josuefako/IdeaProjects/github-repositories/prj-aop-v5-ExceptionHandler-strategy) 
+16:24:22.304 [main] DEBUG c.e.aop.UserNotesApplicationTests - Running with Spring Boot v2.0.0.RELEASE, Spring v5.0.4.RELEASE 
+16:24:22.307 [main] INFO  c.e.aop.UserNotesApplicationTests - No active profile set, falling back to default profiles: default 
+16:24:25.800 [main] INFO  c.e.aop.UserNotesApplicationTests - Started UserNotesApplicationTests in 23.747 seconds (JVM running for 24.529) 
+16:26:42.502 [main] INFO  c.e.aop.UserNotesApplicationTests - Starting UserNotesApplicationTests on JOSUEs-MacBook-Pro.local with PID 22688 (started by josuefako in /Users/josuefako/IdeaProjects/github-repositories/prj-aop-v5-ExceptionHandler-strategy) 
+16:26:42.506 [main] DEBUG c.e.aop.UserNotesApplicationTests - Running with Spring Boot v2.0.0.RELEASE, Spring v5.0.4.RELEASE 
+16:26:42.509 [main] INFO  c.e.aop.UserNotesApplicationTests - No active profile set, falling back to default profiles: default 
+16:26:46.027 [main] INFO  c.e.aop.UserNotesApplicationTests - Started UserNotesApplicationTests in 23.781 seconds (JVM running for 24.53) 
+16:48:12.349 [main] INFO  c.e.aop.UserNotesApplicationTests - Starting UserNotesApplicationTests on JOSUEs-MacBook-Pro.local with PID 22782 (started by josuefako in /Users/josuefako/IdeaProjects/github-repositories/prj-aop-v5-ExceptionHandler-strategy) 
+16:48:12.353 [main] DEBUG c.e.aop.UserNotesApplicationTests - Running with Spring Boot v2.0.0.RELEASE, Spring v5.0.4.RELEASE 
+16:48:12.356 [main] INFO  c.e.aop.UserNotesApplicationTests - No active profile set, falling back to default profiles: default 
+16:48:15.784 [main] INFO  c.e.aop.UserNotesApplicationTests - Started UserNotesApplicationTests in 23.708 seconds (JVM running for 24.452) 
+17:26:59.045 [main] INFO  c.e.aop.UserNotesApplicationTests - Starting UserNotesApplicationTests on JOSUEs-MacBook-Pro.local with PID 23540 (started by josuefako in /Users/josuefako/IdeaProjects/github-repositories/prj-aop-v5-ExceptionHandler-strategy) 
+17:26:59.048 [main] DEBUG c.e.aop.UserNotesApplicationTests - Running with Spring Boot v2.0.0.RELEASE, Spring v5.0.4.RELEASE 
+17:26:59.052 [main] INFO  c.e.aop.UserNotesApplicationTests - No active profile set, falling back to default profiles: default 
+17:27:04.569 [main] INFO  c.e.aop.UserNotesApplicationTests - Started UserNotesApplicationTests in 25.965 seconds (JVM running for 32.4) 
+17:27:48.793 [main] INFO  c.e.aop.UserNotesApplicationTests - Starting UserNotesApplicationTests on JOSUEs-MacBook-Pro.local with PID 23590 (started by josuefako in /Users/josuefako/IdeaProjects/github-repositories/prj-aop-v5-ExceptionHandler-strategy) 
+17:27:48.796 [main] DEBUG c.e.aop.UserNotesApplicationTests - Running with Spring Boot v2.0.0.RELEASE, Spring v5.0.4.RELEASE 
+17:27:48.799 [main] INFO  c.e.aop.UserNotesApplicationTests - No active profile set, falling back to default profiles: default 
+17:27:54.001 [main] INFO  c.e.aop.UserNotesApplicationTests - Started UserNotesApplicationTests in 25.612 seconds (JVM running for 31.909) 
+17:28:44.181 [main] INFO  c.e.aop.UserNotesApplicationTests - Starting UserNotesApplicationTests on JOSUEs-MacBook-Pro.local with PID 23638 (started by josuefako in /Users/josuefako/IdeaProjects/github-repositories/prj-aop-v5-ExceptionHandler-strategy) 
+17:28:44.185 [main] DEBUG c.e.aop.UserNotesApplicationTests - Running with Spring Boot v2.0.0.RELEASE, Spring v5.0.4.RELEASE 
+17:28:44.189 [main] INFO  c.e.aop.UserNotesApplicationTests - No active profile set, falling back to default profiles: default 
+17:28:49.280 [main] INFO  c.e.aop.UserNotesApplicationTests - Started UserNotesApplicationTests in 25.493 seconds (JVM running for 31.934) 
+17:29:39.008 [main] INFO  c.e.aop.UserNotesApplicationTests - Starting UserNotesApplicationTests on JOSUEs-MacBook-Pro.local with PID 23694 (started by josuefako in /Users/josuefako/IdeaProjects/github-repositories/prj-aop-v5-ExceptionHandler-strategy) 
+17:29:39.011 [main] DEBUG c.e.aop.UserNotesApplicationTests - Running with Spring Boot v2.0.0.RELEASE, Spring v5.0.4.RELEASE 
+17:29:39.014 [main] INFO  c.e.aop.UserNotesApplicationTests - No active profile set, falling back to default profiles: default 
+17:29:43.993 [main] INFO  c.e.aop.UserNotesApplicationTests - Started UserNotesApplicationTests in 25.382 seconds (JVM running for 31.718) 
+17:30:53.331 [main] INFO  c.e.aop.UserNotesApplicationTests - Starting UserNotesApplicationTests on JOSUEs-MacBook-Pro.local with PID 23749 (started by josuefako in /Users/josuefako/IdeaProjects/github-repositories/prj-aop-v5-ExceptionHandler-strategy) 
+17:30:53.333 [main] DEBUG c.e.aop.UserNotesApplicationTests - Running with Spring Boot v2.0.0.RELEASE, Spring v5.0.4.RELEASE 
+17:30:53.337 [main] INFO  c.e.aop.UserNotesApplicationTests - No active profile set, falling back to default profiles: default 
+17:30:58.561 [main] INFO  c.e.aop.UserNotesApplicationTests - Started UserNotesApplicationTests in 25.605 seconds (JVM running for 31.92) 
+18:13:54.862 [main] INFO  c.e.aop.UserNotesApplicationTests - Starting UserNotesApplicationTests on JOSUEs-MacBook-Pro.local with PID 24157 (started by josuefako in /Users/josuefako/IdeaProjects/github-repositories/prj-aop-v5-ExceptionHandler-strategy) 
+18:13:54.866 [main] DEBUG c.e.aop.UserNotesApplicationTests - Running with Spring Boot v2.0.0.RELEASE, Spring v5.0.4.RELEASE 
+18:13:54.869 [main] INFO  c.e.aop.UserNotesApplicationTests - No active profile set, falling back to default profiles: default 
+18:14:00.043 [main] INFO  c.e.aop.UserNotesApplicationTests - Started UserNotesApplicationTests in 25.566 seconds (JVM running for 31.925) 

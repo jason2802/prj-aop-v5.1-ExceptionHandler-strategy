@@ -1,0 +1,7 @@
+20910 [main] INFO  c.example.aop.UserNotesApplication - Starting UserNotesApplication on JOSUEs-MacBook-Pro.local with PID 14477 (/Users/josuefako/IdeaProjects/github-repositories/prj-aop-v5-ExceptionHandler-strategy/target/classes started by josuefako in /Users/josuefako/IdeaProjects/github-repositories/prj-aop-v5-ExceptionHandler-strategy) 
+20914 [main] DEBUG c.example.aop.UserNotesApplication - Running with Spring Boot v2.0.0.RELEASE, Spring v5.0.4.RELEASE 
+20917 [main] INFO  c.example.aop.UserNotesApplication - No active profile set, falling back to default profiles: default 
+25337 [main] INFO  c.example.aop.UserNotesApplication - Started UserNotesApplication in 24.913 seconds (JVM running for 25.592) 
+37236 [http-nio-8181-exec-2] DEBUG c.e.a.a.MyCustomConfigurationAspect -  +++++++++ get Inside BEFORE getUserAccess ------------  
+37238 [http-nio-8181-exec-2] DEBUG c.e.a.a.MyCustomConfigurationAspect -  +++++++++ get Outside BEFORE getUserAccess ------------  
+37244 [http-nio-8181-exec-2] INFO  c.e.aop.controller.NoteController -  *** createNote  
