@@ -1,0 +1,4 @@
+1185 [main] INFO  c.e.aop.UserNotesApplicationTests - Starting UserNotesApplicationTests on JOSUEs-MBP with PID 50679 (started by josuefako in /Users/josuefako/IdeaProjects/github-repositories/prj-aop-v5.1-ExceptionHandler-strategy) 
+1189 [main] DEBUG c.e.aop.UserNotesApplicationTests - Running with Spring Boot v2.0.0.RELEASE, Spring v5.0.4.RELEASE 
+1191 [main] INFO  c.e.aop.UserNotesApplicationTests - No active profile set, falling back to default profiles: default 
+6329 [main] INFO  c.e.aop.UserNotesApplicationTests - Started UserNotesApplicationTests in 5.548 seconds (JVM running for 6.928) 

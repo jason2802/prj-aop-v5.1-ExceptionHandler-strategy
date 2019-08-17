@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AuthentificationAdvice.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">prj-aop-v5.1-ExceptionHandler-strategy</a> &gt; <a href="index.source.html" class="el_package">com.example.aop.aspect</a> &gt; <span class="el_source">AuthentificationAdvice.java</span></div><h1>AuthentificationAdvice.java</h1><pre class="source lang-java linenums">package com.example.aop.aspect;
+
+
+import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.inject.Inject;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
+import com.example.aop.service.AuthorizationImpl;
+
+@Aspect
+@Component
+public class AuthentificationAdvice {
+		
+<span class="fc" id="L27">	Logger LOG = LoggerFactory.getLogger( AuthentificationAdvice.class );</span>
+	
+	private final AuthorizationImpl authorizationImpl;
+	
+	@Inject
+<span class="fc" id="L32">	public AuthentificationAdvice(AuthorizationImpl authorizationImpl ) {</span>
+<span class="fc" id="L33">		this.authorizationImpl = authorizationImpl;</span>
+<span class="fc" id="L34">	}</span>
+	
+	/*
+	 * COME USARE POINTCUT DENTRO UN ADVICE
+	 * 
+		@Pointcut(&quot; execution (* com.test.someTask(..))&quot;)
+		 public void pointcutTest() {}
+		 
+		 @After(&quot;pointcutTest(..))&quot;)
+		 public void myAdvice(){
+		 System.out.println(&quot;my advice...&quot;);
+		 }
+	 */
+	
+	
+	/*	
+	 * COME USARE POINTCUT DENTRO UN ADVICE
+	 *  
+	 	@Pointcut(&quot;@args(org.baeldung.aop.annotations.Entity)&quot;)
+		public void methodsAcceptingEntities() {}
+		
+		
+		To access the argument we should provide a JoinPoint argument to the advice:
+		@Before(&quot;methodsAcceptingEntities()&quot;)
+		public void logMethodAcceptionEntityAnnotatedBean(JoinPoint jp) {
+		    logger.info(&quot;Accepting beans with @Entity annotation: &quot; + jp.getArgs()[0]);
+		}
+	 
+	 */
+	
+	
+	//     https://blogs.ashrithgn.com/2018/07/19/custom-authorization-annotation/
+	
+	/*@Before(&quot;@annotation(com.example.aop.aspect.Authorized) &amp;&amp; args(request,..)&quot;) - @annotation    NON FUNZIONA CON    args(request,..) */
+	
+	// @Pointcut(&quot;execution(* com.example.aop.*.*(..)) &amp;&amp; args(request,..)&quot;) // KO	// 1st approach to retrieve ELEMENT FROM HTTPREQUEST: by using 'request,..' in the args expression I suppose that for sure i will have at least one argument with name request and i will have zero or more parameters at that point
+	// @Pointcut(&quot;execution(* com.example.aop.*.*(..)) &amp;&amp; args(..)&quot;) // OK
+	// @Pointcut(&quot;execution(* com.example.aop.*.*(..)) &amp;&amp; args(request,..)&quot;) // OK
+	// @Pointcut(&quot;execution(* com.example.aop.aspect.Authorized) &amp;&amp; args(..)&quot;) // OK
+	// @Around(&quot;@annotation(com.example.aop.aspect.Authorized)&quot;) // KO
+	
+	 // @Around(&quot;@annotation(com.example.aop.aspect.Authentification) &amp;&amp; args(..)&quot;) // OK OK
+	 // @Pointcut(&quot;execution(* com.example.aop.*.*(..)) &amp;&amp; args(..)&quot;) // OK OK
+	@Before(&quot;@annotation(com.example.aop.aspect.Authentification)&quot;) // OK OK	
+	public void authorisation_secondo_approach( JoinPoint joinPoint ) throws Throwable {
+				
+<span class="nc" id="L80">		String methodName = joinPoint.getSignature().getName();</span>
+<span class="nc" id="L81">		String className = joinPoint.getTarget().getClass().toString();		</span>
+<span class="nc" id="L82">		LOG.info( &quot; ------ method invoked: &quot; + className + &quot; : &quot; + methodName + &quot;( )&quot; + &quot; - request : &quot; );		</span>
+		
+<span class="nc" id="L84">		HttpServletRequest request = (HttpServletRequest)joinPoint.getArgs()[0];</span>
+		
+<span class="nc bnc" id="L86" title="All 2 branches missed.">		if ( !( request instanceof HttpServletRequest) ) {</span>
+<span class="nc" id="L87">			throw new RuntimeException( &quot; ------ request should be HttpServletRequest type &quot; );</span>
+		}
+<span class="nc bnc" id="L89" title="All 2 branches missed.">		if ( request.getHeaderNames()== null ) {</span>
+<span class="nc" id="L90">			throw new RuntimeException( &quot; ------ You must set headers &quot; );</span>
+		}
+		
+		
+		// STAMPIAMO la request
+<span class="nc" id="L95">		printRequest(request);</span>
+		
+		
+<span class="nc" id="L98">		Object[] ar = joinPoint.getArgs();</span>
+		
+<span class="nc" id="L100">		List&lt;Object&gt; args = Arrays.asList( ar );</span>
+		
+<span class="nc bnc" id="L102" title="All 2 branches missed.">		for ( Iterator&lt;Object&gt; iterator = args.iterator(); iterator.hasNext(); ) {</span>
+<span class="nc" id="L103">			Object object = (Object) iterator.next();</span>
+<span class="nc" id="L104">			LOG.info( &quot; object = &quot; + object.toString() ); </span>
+<span class="nc" id="L105">		}</span>
+				
+<span class="nc" id="L107">		String token_set_as_body_attribut = request.getParameterMap().entrySet().stream()</span>
+<span class="nc" id="L108">				.filter( entry -&gt; entry.getKey().equalsIgnoreCase( &quot;token&quot; ) )</span>
+<span class="nc" id="L109">				.map( entry -&gt; entry.getValue() )</span>
+<span class="nc" id="L110">				.toString();				</span>
+			   			//  .collect( Collectors.joining() );
+								
+<span class="nc bnc" id="L113" title="All 2 branches missed.">		if ( authorizationImpl.authorize( token_set_as_body_attribut )) {			</span>
+<span class="nc" id="L114">			 request.setAttribute(</span>
+			           &quot;userSession&quot;, 
+			           &quot;session information which cann be acces in controller&quot;
+			           );
+		}else {
+<span class="nc" id="L119">            throw new RuntimeException(&quot;auth error..!!!&quot;);</span>
+		}
+		
+		
+<span class="nc" id="L123">		String base64_BasicAutentication = request.getHeader(&quot;Authorization&quot;);		</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">		if(authorizationImpl.authorize( base64_BasicAutentication )){</span>
+<span class="nc" id="L125">			request.setAttribute(</span>
+	           &quot;userSession&quot;, 
+	           &quot;session information which cann be acces in controller&quot;
+	           );
+	     }else {
+<span class="nc" id="L130">	            throw new RuntimeException(&quot;auth error..!!!&quot;);</span>
+	     }
+		
+		
+<span class="nc" id="L134">	}</span>
+	
+	
+	
+	private void printRequest( HttpServletRequest request ){
+		
+<span class="nc" id="L140">		LOG.info(&quot;=== User ( Returns the login of the user making this request, if the user has been authenticated, or null if the user has not been authenticated.)  ===\n&quot;);</span>
+<span class="nc" id="L141">		LOG.info(&quot;Request Remote User  : &quot; + request.getRemoteUser() );</span>
+		
+<span class="nc" id="L143">		LOG.info(&quot;=== Paths ===\n&quot;);</span>
+<span class="nc" id="L144">		LOG.info(&quot;Request URL : &quot; + request.getRequestURL());</span>
+<span class="nc" id="L145">		LOG.info(&quot;Request URI : &quot; + request.getRequestURI());</span>
+<span class="nc" id="L146">		LOG.info(&quot;Servlet path : &quot; + request.getServletPath());</span>
+		
+<span class="nc" id="L148">		LOG.info(&quot;\n=== Headers ===\n&quot;);		</span>
+<span class="nc" id="L149">		Enumeration&lt;String&gt; e = request.getHeaderNames();</span>
+<span class="nc bnc" id="L150" title="All 2 branches missed.">		while(e.hasMoreElements()){</span>
+<span class="nc" id="L151">			String param = (String) e.nextElement();</span>
+<span class="nc" id="L152">			LOG.info(param + &quot; : &quot; + request.getHeader(param));</span>
+<span class="nc" id="L153">		}</span>
+		
+<span class="nc" id="L155">		LOG.info(&quot;\n=== Parameters ===\n&quot;);</span>
+<span class="nc" id="L156">		Map&lt;String, String[]&gt; paramsMap = request.getParameterMap();</span>
+<span class="nc bnc" id="L157" title="All 2 branches missed.">		for (String key : paramsMap.keySet()) {</span>
+<span class="nc" id="L158">			LOG.info(key + &quot; : &quot; + request.getParameter(key));</span>
+<span class="nc" id="L159">		}</span>
+		
+<span class="nc" id="L161">		LOG.info(&quot;\n=== Session ===\n&quot;);</span>
+		// returns 0:0:0:0:0:0:0:1 if executed from localhost
+<span class="nc" id="L163">		LOG.info(&quot;Client IP address : &quot; + request.getRemoteAddr());</span>
+<span class="nc" id="L164">		LOG.info(&quot;Session ID : &quot; + request.getRequestedSessionId());</span>
+		
+		// Cookie objects the client sent with this request
+<span class="nc" id="L167">		Cookie[] cookies = request.getCookies();</span>
+<span class="nc bnc" id="L168" title="All 2 branches missed.">		if (cookies != null) {</span>
+<span class="nc bnc" id="L169" title="All 2 branches missed.">			for (Cookie cookie : cookies) {</span>
+<span class="nc" id="L170">				LOG.info(cookie.getName() + &quot;;&quot;);</span>
+			}
+		}
+		
+		
+<span class="nc" id="L175">	}</span>
+	
+	/* EXEMPLE DE VALORE LOGGE 
+	 
+	 2019-08-03 17:37:43.172  INFO 21868 --- [nio-8181-exec-1] c.e.aop.aspect.AuthentificationAdvice    : === User ( Returns the login of the user making this request, if the user has been authenticated, or null if the user has not been authenticated.)  ===
+
+2019-08-03 17:37:43.172  INFO 21868 --- [nio-8181-exec-1] c.e.aop.aspect.AuthentificationAdvice    : Request Remote User  : null
+2019-08-03 17:37:43.172  INFO 21868 --- [nio-8181-exec-1] c.e.aop.aspect.AuthentificationAdvice    : === Paths ===
+
+2019-08-03 17:37:43.182  INFO 21868 --- [nio-8181-exec-1] c.e.aop.aspect.AuthentificationAdvice    : Request URL : http://localhost:8181/authentication/user
+2019-08-03 17:37:43.182  INFO 21868 --- [nio-8181-exec-1] c.e.aop.aspect.AuthentificationAdvice    : Request URI : /authentication/user
+2019-08-03 17:37:43.183  INFO 21868 --- [nio-8181-exec-1] c.e.aop.aspect.AuthentificationAdvice    : Servlet path : /authentication/user
+2019-08-03 17:37:44.545  INFO 21868 --- [nio-8181-exec-1] c.e.aop.aspect.AuthentificationAdvice    : 
+=== Headers ===
+
+2019-08-03 17:37:44.546  INFO 21868 --- [nio-8181-exec-1] c.e.aop.aspect.AuthentificationAdvice    : content-type : application/json
+2019-08-03 17:37:44.546  INFO 21868 --- [nio-8181-exec-1] c.e.aop.aspect.AuthentificationAdvice    : accept : application/json
+2019-08-03 17:37:44.546  INFO 21868 --- [nio-8181-exec-1] c.e.aop.aspect.AuthentificationAdvice    : access-control-request-headers : test
+2019-08-03 17:37:44.546  INFO 21868 --- [nio-8181-exec-1] c.e.aop.aspect.AuthentificationAdvice    : user-agent : application/octet-stream
+2019-08-03 17:37:44.546  INFO 21868 --- [nio-8181-exec-1] c.e.aop.aspect.AuthentificationAdvice    : authorization : Basic QURIT0wwMVxHdWV0c2E6TmV4aTI4MDI0
+2019-08-03 17:37:44.546  INFO 21868 --- [nio-8181-exec-1] c.e.aop.aspect.AuthentificationAdvice    : cache-control : no-cache
+2019-08-03 17:37:44.546  INFO 21868 --- [nio-8181-exec-1] c.e.aop.aspect.AuthentificationAdvice    : postman-token : f8fd17d1-7150-4d7e-a7ac-f7e9f0d19716
+2019-08-03 17:37:44.546  INFO 21868 --- [nio-8181-exec-1] c.e.aop.aspect.AuthentificationAdvice    : host : localhost:8181
+2019-08-03 17:37:44.546  INFO 21868 --- [nio-8181-exec-1] c.e.aop.aspect.AuthentificationAdvice    : cookie : BCSI-CS-67e7214f470f46ea=2; JSESSIONID=74D722ED1136DD21CEAB353B80BD784D
+2019-08-03 17:37:44.546  INFO 21868 --- [nio-8181-exec-1] c.e.aop.aspect.AuthentificationAdvice    : accept-encoding : gzip, deflate
+2019-08-03 17:37:44.546  INFO 21868 --- [nio-8181-exec-1] c.e.aop.aspect.AuthentificationAdvice    : content-length : 65
+2019-08-03 17:37:44.546  INFO 21868 --- [nio-8181-exec-1] c.e.aop.aspect.AuthentificationAdvice    : connection : keep-alive
+2019-08-03 17:37:46.623  INFO 21868 --- [nio-8181-exec-1] c.e.aop.aspect.AuthentificationAdvice    : 
+=== Parameters ===
+
+2019-08-03 17:37:46.624  INFO 21868 --- [nio-8181-exec-1] c.e.aop.aspect.AuthentificationAdvice    : param1 : param_valore_1
+2019-08-03 17:37:46.624  INFO 21868 --- [nio-8181-exec-1] c.e.aop.aspect.AuthentificationAdvice    : param2 : param_valore_2
+2019-08-03 17:37:48.089  INFO 21868 --- [nio-8181-exec-1] c.e.aop.aspect.AuthentificationAdvice    : 
+=== Session ===
+
+2019-08-03 17:37:48.090  INFO 21868 --- [nio-8181-exec-1] c.e.aop.aspect.AuthentificationAdvice    : Client IP address : 0:0:0:0:0:0:0:1
+2019-08-03 17:37:48.090  INFO 21868 --- [nio-8181-exec-1] c.e.aop.aspect.AuthentificationAdvice    : Session ID : 74D722ED1136DD21CEAB353B80BD784D
+2019-08-03 17:37:49.729  INFO 21868 --- [nio-8181-exec-1] c.e.aop.aspect.AuthentificationAdvice    : BCSI-CS-67e7214f470f46ea;
+2019-08-03 17:37:49.730  INFO 21868 --- [nio-8181-exec-1] c.e.aop.aspect.AuthentificationAdvice    : JSESSIONID;
+2019-08-03 17:37:56.109  INFO 21868 --- [nio-8181-exec-1] c.e.aop.aspect.AuthentificationAdvice    :  object = org.apache.catalina.connector.RequestFacade@37ce22e8
+2019-08-03 17:38:06.343  INFO 21868 --- [nio-8181-exec-1] com.example.aop.aspect.LoggingAdvice     :  - method invoked: class com.example.aop.service.AuthorizationImpl : authorize( ) - Input Arguments : [&quot;java.util.stream.ReferencePipeline$3@70eca8c3&quot;]
+2019-08-03 17:38:08.884  INFO 21868 --- [nio-8181-exec-1] com.example.aop.aspect.LoggingAdvice     :  - method executed: class com.example.aop.service.AuthorizationImpl : authorize( ) - Response : [&quot;java.util.stream.ReferencePipeline$3@70eca8c3&quot;]
+
+	 
+	 
+	 */
+	
+	
+}
+
+
+// approach to retrieve ELEMENT FROM HTTPREQUEST - Get method arguments using Spring AOP?
+
+	
+/*
+	FIRST, you can use the JoinPoint#getArgs() method which returns an Object[] containing all the arguments of the advised method. 
+	You might have to do some casting depending on what you want to do with them.
+*/
+
+
+/*
+	SECOND, you can use the args pointcut expression like so:
+	
+	// use '..' in the args expression if you have zero or more parameters at that point
+	@Before(&quot;execution(* com.mkyong.customer.bo.CustomerBo.addCustomer(..)) &amp;&amp; args(yourString,..)&quot;)
+	then your method can instead be defined as
+	
+	public void logBefore(JoinPoint joinPoint, String yourString) 
+	
+*/
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>

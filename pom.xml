@@ -5,7 +5,7 @@
 
 	<groupId>com.example.aop</groupId>
 	<artifactId>prj-aop-v5.1-ExceptionHandler-strategy</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>prj-aop-v5.1-ExceptionHandler-strategy</name>
@@ -94,7 +94,7 @@ LOGS : How to use SLF4J to :
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-devtools</artifactId>
 				<scope>runtime</scope>
-			</dependency> 
+			</dependency>
 		-->
 		<dependency>
 		    <groupId>javax.inject</groupId>
@@ -315,13 +315,14 @@ LOGS : How to use SLF4J to :
 	 -->
 	<distributionManagement>
 		<repository>
-			<id>local.josuefako.repo</id>
-			<url>http://localhost:8989/repository/local.josuefako.repo/</url>
+			<id>local.josuefako.repo.id</id>
+			<url>http://localhost:8989/repository/local.josuefako.repo.id/</url>
 		</repository>
 		<snapshotRepository>
-			<id>local.josuefako.repo.snapshots2</id>
-			<url>http://localhost:8989/repository/local.josuefako.repo.snapshots2/</url>
+			<id>local.josuefako.repo.id</id>
+			<url>http://localhost:8989/repository/local.josuefako.repo.id/</url>
 		</snapshotRepository>
+
 	</distributionManagement>
 	<!-- Instruction:
              The credentials used for the deployment are found in the <server>

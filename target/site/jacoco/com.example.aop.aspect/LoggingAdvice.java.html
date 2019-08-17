@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoggingAdvice.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">prj-aop-v5.1-ExceptionHandler-strategy</a> &gt; <a href="index.source.html" class="el_package">com.example.aop.aspect</a> &gt; <span class="el_source">LoggingAdvice.java</span></div><h1>LoggingAdvice.java</h1><pre class="source lang-java linenums">package com.example.aop.aspect;
+
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@Aspect
+@Component
+<span class="fc" id="L14">public class LoggingAdvice {</span>
+	
+<span class="fc" id="L16">	Logger LOG = LoggerFactory.getLogger( LoggingAdvice.class );</span>
+		
+	// @Around(execution(&quot;* com.example.aop.*.*(..)&quot;))
+	@Around(&quot;@annotation(com.example.aop.aspect.Logging)&quot;)	
+	public Object applicationLogger(ProceedingJoinPoint pjp) throws Throwable {
+<span class="nc" id="L21">		ObjectMapper mapper = new ObjectMapper();</span>
+<span class="nc" id="L22">		String methodName = pjp.getSignature().getName();</span>
+<span class="nc" id="L23">		String className = pjp.getTarget().getClass().toString();</span>
+		
+<span class="nc" id="L25">		Object[] array = pjp.getArgs(); // 2nd approach to retrieve ELEMENT FROM HTTPREQUEST: by using getArgs()</span>
+		
+<span class="nc" id="L27">		LOG.info( &quot; - method invoked: &quot; + className + &quot; : &quot; + methodName + &quot;( )&quot; + &quot; - Input Arguments : &quot; + mapper.writeValueAsString( array ));</span>
+		
+<span class="nc" id="L29">		Object object = pjp.proceed();</span>
+		
+<span class="nc" id="L31">		LOG.info( &quot; - method executed: &quot; + className + &quot; : &quot; + methodName + &quot;( )&quot; + &quot; - Response : &quot; + mapper.writeValueAsString( array ));</span>
+		
+<span class="nc" id="L33">		return object;</span>
+	} 
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>

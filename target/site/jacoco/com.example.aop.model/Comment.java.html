@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Comment.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">prj-aop-v5.1-ExceptionHandler-strategy</a> &gt; <a href="index.source.html" class="el_package">com.example.aop.model</a> &gt; <span class="el_source">Comment.java</span></div><h1>Comment.java</h1><pre class="source lang-java linenums">package com.example.aop.model;
+
+import javax.validation.constraints.NotNull;
+
+<span class="nc" id="L5">public class Comment implements Containable {</span>
+    @NotNull
+    private User owner;
+    private Long id;
+    private String content;
+    private Post post;
+
+    public User getOwner() {
+<span class="nc" id="L13">        return owner;</span>
+    }
+
+    public void setOwner(User owner) {
+<span class="nc" id="L17">        this.owner = owner;</span>
+<span class="nc" id="L18">    }</span>
+
+    public Long getId() {
+<span class="nc" id="L21">        return id;</span>
+    }
+
+    public void setId(Long id) {
+<span class="nc" id="L25">        this.id = id;</span>
+<span class="nc" id="L26">    }</span>
+
+    @Override
+    public String getContent() {
+<span class="nc" id="L30">        return content;</span>
+    }
+
+    public void setContent(String content) {
+<span class="nc" id="L34">        this.content = content;</span>
+<span class="nc" id="L35">    }</span>
+
+    public Post getPost() {
+<span class="nc" id="L38">        return post;</span>
+    }
+
+    public void setPost(Post post) {
+<span class="nc" id="L42">        this.post = post;</span>
+<span class="nc" id="L43">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>

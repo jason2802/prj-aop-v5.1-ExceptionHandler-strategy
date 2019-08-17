@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NoteController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">prj-aop-v5.1-ExceptionHandler-strategy</a> &gt; <a href="index.source.html" class="el_package">com.example.aop.controller</a> &gt; <span class="el_source">NoteController.java</span></div><h1>NoteController.java</h1><pre class="source lang-java linenums">package com.example.aop.controller;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.aop.aspect.Logging;
+import com.example.aop.aspect.TimeTracking;
+import com.example.aop.aspect.UserAccess;
+import com.example.aop.exception.ResourceNotFoundException;
+import com.example.aop.model.Note;
+import com.example.aop.repository.NoteRepository;
+
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
+/*
+ *  https://www.callicoder.com/spring-boot-rest-api-tutorial-with-mysql-jpa-hibernate/
+ */
+
+@RestController
+@RequestMapping(&quot;/api&quot;)
+<span class="fc" id="L34">public class NoteController {</span>
+
+<span class="fc" id="L36">	private static final Logger LOG = LogManager.getLogger( NoteController.class.getName() );</span>
+		
+    @Autowired
+    NoteRepository noteRepository;
+
+    @TimeTracking
+    @GetMapping(&quot;/notes&quot;)
+    public List&lt;Note&gt; getAllNotes() {
+<span class="nc" id="L44">    	LOG.info( &quot; *** getAllNotes &quot; );</span>
+<span class="nc" id="L45">        return noteRepository.findAll();</span>
+    }
+
+    @UserAccess
+    @PostMapping(&quot;/notes&quot;)
+    public Note createNote(@Valid @RequestBody Note note) {
+<span class="nc" id="L51">    	LOG.info( &quot; *** createNote &quot; );</span>
+<span class="nc" id="L52">        return noteRepository.save(note);</span>
+    }
+    
+    /* TESTATO il 01.08.2019 - OK */
+    @Logging
+    @PostMapping(&quot;/notes/log&quot;)
+    public Note createNoteLog(@Valid @RequestBody Note note) {    	
+<span class="nc" id="L59">        return noteRepository.save(note);</span>
+    }
+    
+    @TimeTracking
+    @GetMapping(&quot;/notes/{id}&quot;)
+    public Note getNoteById(@PathVariable(value = &quot;id&quot;) Long noteId) {
+<span class="nc" id="L65">    	LOG.info( &quot; *** getNoteById &quot; );</span>
+<span class="nc" id="L66">        return noteRepository.findById(noteId)</span>
+<span class="nc" id="L67">                .orElseThrow(() -&gt; new ResourceNotFoundException(&quot;Note&quot;, &quot;id&quot;, noteId));</span>
+    }
+    
+    @UserAccess
+    @PutMapping(&quot;/notes/{id}&quot;)
+    public Note updateNote(@PathVariable(value = &quot;id&quot;) Long noteId,
+                                           @Valid @RequestBody Note noteDetails) {
+<span class="nc" id="L74">    	LOG.info( &quot; *** updateNote &quot; );</span>
+<span class="nc" id="L75">        Note note = noteRepository.findById(noteId)</span>
+<span class="nc" id="L76">                .orElseThrow(() -&gt; new ResourceNotFoundException(&quot;Note&quot;, &quot;id&quot;, noteId));</span>
+
+<span class="nc" id="L78">        note.setTitle(noteDetails.getTitle());</span>
+<span class="nc" id="L79">        note.setContent(noteDetails.getContent());</span>
+
+<span class="nc" id="L81">        Note updatedNote = noteRepository.save(note);</span>
+<span class="nc" id="L82">        return updatedNote;</span>
+    }
+
+    @DeleteMapping(&quot;/notes/{id}&quot;)
+    public ResponseEntity&lt;?&gt; deleteNote(@PathVariable(value = &quot;id&quot;) Long noteId) {
+<span class="nc" id="L87">    	LOG.info( &quot; *** deleteNote &quot; );</span>
+<span class="nc" id="L88">        Note note = noteRepository.findById(noteId)</span>
+<span class="nc" id="L89">                .orElseThrow(() -&gt; new ResourceNotFoundException(&quot;Note&quot;, &quot;id&quot;, noteId));</span>
+
+<span class="nc" id="L91">        noteRepository.delete(note);</span>
+
+<span class="nc" id="L93">        return ResponseEntity.ok().build();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>

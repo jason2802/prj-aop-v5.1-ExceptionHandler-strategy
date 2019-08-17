@@ -1,0 +1,8 @@
+com.example.aop
+com.example.aop.aspect
+com.example.aop.common
+com.example.aop.controller
+com.example.aop.exception
+com.example.aop.model
+com.example.aop.repository
+com.example.aop.service
